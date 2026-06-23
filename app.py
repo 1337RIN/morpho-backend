@@ -1,10 +1,10 @@
 import os
 from flask import Flask, request, jsonify
-from flask_cors import CORS # Импортируем CORS
+from flask_cors import CORS
 from main import analyze_sentence
 
 app = Flask(__name__)
-CORS(app) # Разрешаем перекрестные запросы для всего приложения
+CORS(app)
 
 @app.route('/api/analyze', methods=['POST'])
 def api_analyze():
@@ -16,9 +16,6 @@ def api_analyze():
     return jsonify(analysis_result)
 
 if __name__ == '__main__':
-    # Render автоматически передает порт в переменные окружения PORT.
-    # Если мы запускаем локально, сработает дефолтное значение 5000.
     port = int(os.environ.get("PORT", 5000))
     
-    # На Render крайне важно слушать хост 0.0.0.0, чтобы сервер принимал внешние запросы
     app.run(host='0.0.0.0', port=port, debug=False)
